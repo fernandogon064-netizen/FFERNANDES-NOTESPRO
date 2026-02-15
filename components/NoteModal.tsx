@@ -12,7 +12,8 @@ import {
   Palette,
   Type,
   Link as LinkIcon,
-  Video
+  Video,
+  Check
 } from 'lucide-react';
 import { Category, Priority, Note, ChecklistItem } from '../types';
 import DrawingModal from './DrawingModal';
@@ -152,6 +153,34 @@ const NoteModal: React.FC<NoteModalProps> = ({ isOpen, onClose, onSubmit, editin
                     <select value={priority} onChange={(e) => setPriority(e.target.value as Priority)} className="w-full bg-slate-50 dark:bg-neutral-900 border border-slate-200 dark:border-neutral-800 rounded-xl px-4 py-3 text-xs font-bold">
                       {Object.values(Priority).map(p => <option key={p} value={p}>{p}</option>)}
                     </select>
+                  </div>
+                </div>
+
+                {/* Tabela de Cores da Nota */}
+                <div className="pt-2">
+                  <label className="block text-[11px] font-black text-slate-900 dark:text-neutral-500 uppercase tracking-[0.2em] mb-4">Cor Identificadora da Ideia</label>
+                  <div className="flex flex-wrap gap-4">
+                    {NOTE_COLORS.map((c) => (
+                      <button
+                        key={c.value}
+                        type="button"
+                        onClick={() => setSelectedColor(c.value)}
+                        className={`w-9 h-9 rounded-full border-2 transition-all hover:scale-110 active:scale-90 flex items-center justify-center relative ${
+                          selectedColor === c.value 
+                          ? 'border-slate-900 dark:border-white ring-4 ring-brand-500/20' 
+                          : 'border-transparent'
+                        }`}
+                        style={{ backgroundColor: c.value === 'transparent' ? 'rgba(0,0,0,0.05)' : c.value }}
+                        title={c.name}
+                      >
+                        {selectedColor === c.value && (
+                          <Check size={16} className={c.value === 'transparent' ? 'text-slate-900' : 'text-white'} />
+                        )}
+                        {c.value === 'transparent' && selectedColor !== c.value && (
+                           <Palette size={14} className="text-slate-300" />
+                        )}
+                      </button>
+                    ))}
                   </div>
                 </div>
               </div>
