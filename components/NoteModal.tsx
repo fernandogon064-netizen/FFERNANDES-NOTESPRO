@@ -13,7 +13,8 @@ import {
   Type,
   Link as LinkIcon,
   Video,
-  Check
+  Check,
+  Maximize2
 } from 'lucide-react';
 import { Category, Priority, Note, ChecklistItem } from '../types';
 import DrawingModal from './DrawingModal';
@@ -194,9 +195,21 @@ const NoteModal: React.FC<NoteModalProps> = ({ isOpen, onClose, onSubmit, editin
                   </div>
                   <div className="h-32 rounded-2xl border-2 border-dashed border-slate-200 dark:border-neutral-800 flex items-center justify-center bg-slate-50 dark:bg-neutral-950/30 overflow-hidden relative group">
                     {image ? (
-                      <div className="w-full h-full relative">
-                        <img src={image} className="w-full h-full object-cover" alt="Preview" />
-                        <button type="button" onClick={() => setImage(undefined)} className="absolute top-2 right-2 bg-red-500 text-white p-1 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity"><X size={14}/></button>
+                      <div 
+                        className="w-full h-full relative cursor-pointer group/thumb"
+                        onClick={() => onImagePreview?.(image)}
+                      >
+                        <img src={image} className="w-full h-full object-cover transition-transform duration-500 group-hover/thumb:scale-105" alt="Preview" />
+                        <div className="absolute inset-0 bg-black/20 opacity-0 group-hover/thumb:opacity-100 transition-opacity flex items-center justify-center">
+                          <Maximize2 size={24} className="text-white drop-shadow-md" />
+                        </div>
+                        <button 
+                          type="button" 
+                          onClick={(e) => { e.stopPropagation(); setImage(undefined); }} 
+                          className="absolute top-2 right-2 z-10 bg-red-500 text-white p-1 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-600"
+                        >
+                          <X size={14}/>
+                        </button>
                       </div>
                     ) : (
                       <label className="cursor-pointer flex flex-col items-center gap-1">
