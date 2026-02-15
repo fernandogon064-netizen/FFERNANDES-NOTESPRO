@@ -1,0 +1,160 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FFernandes NotesPRO</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Total 20 fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Bebas+Neue&family=Caveat:wght@400;700&family=Cormorant+Garamond:ital,wght@0,400;0,700;1,400&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Dancing+Script:wght@400;700&family=Great+Vibes&family=Inter:wght@300;400;500;600;700&family=Josefin+Sans:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,400;0,700;1,400&family=Merriweather:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;700&family=Open+Sans:wght@300;400;700&family=Oswald:wght@300;400;700&family=Pacifico&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;700&family=Quicksand:wght@300;400;700&family=Roboto:wght@300;400;700&family=Source+Code+Pro:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        --brand-50: #f0f9ff;
+        --brand-100: #e0f2fe;
+        --brand-200: #bae6fd;
+        --brand-300: #7dd3fc;
+        --brand-400: #38bdf8;
+        --brand-500: #0ea5e9;
+        --brand-600: #0284c7;
+        --user-font: 'Inter', sans-serif;
+      }
+      body {
+        font-family: var(--user-font);
+        transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), color 0.4s ease;
+      }
+
+      @keyframes float {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-5px); }
+        100% { transform: translateY(0px); }
+      }
+      .animate-float {
+        animation: float 3s ease-in-out infinite;
+      }
+
+      /* Base Theme Overrides */
+      html.theme-blue {
+        --bg-main: #f0f7ff;
+        --bg-card: #ffffff;
+        --border-color: #dbeafe;
+        --text-main: #1e3a8a;
+        --text-muted: #60a5fa;
+      }
+      html.theme-red {
+        --bg-main: #fff1f2;
+        --bg-card: #ffffff;
+        --border-color: #fecdd3;
+        --text-main: #881337;
+        --text-muted: #fb7185;
+      }
+      html.theme-gray {
+        --bg-main: #f8fafc;
+        --bg-card: #ffffff;
+        --border-color: #e2e8f0;
+        --text-main: #334155;
+        --text-muted: #94a3b8;
+      }
+      html.theme-black {
+        --bg-main: #000000;
+        --bg-card: #0a0a0a;
+        --border-color: #1a1a1a;
+        --text-main: #ffffff;
+        --text-muted: #a3a3a3;
+      }
+
+      /* Dark/Black text colors */
+      html.dark, html.theme-black {
+        color: #ffffff !important;
+      }
+      
+      html.theme-black .glass-card {
+        background-color: #141414 !important;
+      }
+
+      html.theme-blue body, html.theme-red body, html.theme-gray body {
+        background-color: var(--bg-main) !important;
+        color: var(--text-main) !important;
+      }
+
+      html.theme-black body {
+        background-color: var(--bg-main) !important;
+        color: var(--text-main) !important;
+      }
+
+      /* Garantir visibilidade do texto dentro dos cards nos temas customizados */
+      html.theme-blue .glass-card, html.theme-red .glass-card, html.theme-gray .glass-card {
+        background-color: #ffffff !important;
+        border-color: var(--border-color) !important;
+      }
+      
+      .note-content, .note-title, textarea, input[type="text"] {
+        font-family: var(--user-font) !important;
+      }
+
+      .custom-scroll::-webkit-scrollbar {
+        width: 4px;
+      }
+      .custom-scroll::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .custom-scroll::-webkit-scrollbar-thumb {
+        background: var(--brand-300);
+        border-radius: 10px;
+        opacity: 0.2;
+      }
+      
+      .recharts-cartesian-grid-horizontal line, 
+      .recharts-cartesian-grid-vertical line {
+        stroke: rgba(125, 211, 252, 0.1);
+      }
+
+      /* Fallback para cores de texto em dark mode */
+      .dark .text-slate-900 {
+        color: #ffffff !important;
+      }
+      .dark .text-slate-600, .dark .text-slate-700 {
+        color: #cbd5e1 !important;
+      }
+    </style>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              brand: {
+                50: 'var(--brand-50)',
+                100: 'var(--brand-100)',
+                200: 'var(--brand-200)',
+                300: 'var(--brand-300)',
+                400: 'var(--brand-400)',
+                500: 'var(--brand-500)',
+                600: 'var(--brand-600)',
+              }
+            }
+          }
+        }
+      }
+    </script>
+    <script type="importmap">
+{
+  "imports": {
+    "recharts": "https://esm.sh/recharts@^3.7.0",
+    "react/": "https://esm.sh/react@^19.2.4/",
+    "react": "https://esm.sh/react@^19.2.4",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
+    "lucide-react": "https://esm.sh/lucide-react@^0.563.0",
+    "jspdf": "https://esm.sh/jspdf@^2.5.1"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body class="bg-slate-50 dark:bg-[#050505] text-slate-900 dark:text-white">
+    <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>
